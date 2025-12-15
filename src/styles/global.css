@@ -30,6 +30,25 @@
 	font-style: normal;
 	font-display: swap;
 }
+@font-face {
+  font-family: 'Merriweather';
+  /* Use WOFF2 for best web performance, with TTF as a fallback */
+  src: url('/fonts/Merriweather-Variable.ttf') format('truetype-variations');
+  /* Define the supported weight range (e.g., from 100 to 900) */
+  font-weight: 100 900;
+  /* Define the supported width range (e.g., from 75% to 125%) */
+  font-stretch: 75% 125%;
+  /* Optional: define a range for optical size */
+  font-optical-sizing: auto;
+}
+@font-face {
+  font-family: 'Agave';
+  /* Use WOFF2 for best web performance, with TTF as a fallback */
+  src: url('/fonts/Agave-Regular.woff2') format('woff2');
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
 	font-family: "Atkinson", sans-serif;
 	margin: 0;
@@ -55,6 +74,7 @@ h3,
 h4,
 h5,
 h6 {
+	font-family: 'Merriweather';
 	margin: 0 0 0.5rem 0;
 	color: rgb(var(--black));
 	line-height: 1.2;
@@ -106,11 +126,13 @@ img {
 	border-radius: 8px;
 }
 code {
+	font-family: 'Agave';
 	padding: 2px 5px;
 	background-color: rgb(var(--gray-light));
 	border-radius: 2px;
 }
 pre {
+	font-family: 'Agave';
 	padding: 1.5em;
 	border-radius: 8px;
 }
