@@ -33,13 +33,14 @@
 @font-face {
   font-family: 'Merriweather';
   /* Use WOFF2 for best web performance, with TTF as a fallback */
-  src: url('/fonts/Merriweather-Variable.ttf') format('truetype-variations');
+  src: url('/fonts/Merriweather-Variable.woff2') format('woff2-variations');
   /* Define the supported weight range (e.g., from 100 to 900) */
   font-weight: 100 900;
   /* Define the supported width range (e.g., from 75% to 125%) */
   font-stretch: 75% 125%;
   /* Optional: define a range for optical size */
   font-optical-sizing: auto;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Agave';
