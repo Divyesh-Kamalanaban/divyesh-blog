@@ -6,6 +6,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 ).slice(0,3);
@@ -51,28 +52,23 @@ const posts = (await getCollection('blog')).sort(
 
 </style>
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
+<BaseLayout>
 	<body>
-		<Header />
 		<main>
 			<h1>Hey there.</h1>
 			<p>
-				This is a space I would like to dedicate to my tech adventures, endeavours, deep dive into new domains and so on! <code>divyesh.is-cool.dev</code> will contain devlogs, writing about new discoveries and explorations into the fields of embedded hardware, Linux development, DIY tech as a full stack developer (student currently).
+				This is a space I would like to dedicate to my tech adventures, endeavours, deep dive into new domains and so on! <code>divyesh.is-cool.dev</code> will contain devlogs, writing about new discoveries and explorations into the fields of embedded hardware, and Linux development.
 			</p>
 			<p>
-				You can visit the <code>about</code> page for more information regarding myself and a deeper dive into my journey, as well as ways to contact me for feedback and discrepancies!
-			</p>
+                I am currently focused on SleeQC, a TinyML framework, and optimizing neural networks for bare-metal environments. Visit the <code>about</code> page for my full journey and technical roadmap.
+            </p>
 			
 		</main>
 		
 		<section id="recent-posts-intro">
 			<h2>Recent Posts</h2>
 				<ul>
-					{ posts.length == 3 ? posts.map((post) => (
+					{ posts.length >0 ? posts.map((post) => (
 							<li>
 								<a href={`/blog/${post.id}/`}>
 									{post.data.heroImage && (
@@ -88,6 +84,5 @@ const posts = (await getCollection('blog')).sort(
 					}
 				</ul>
 			</section>
-		<Footer />
 	</body>
-</html>
+</BaseLayout>

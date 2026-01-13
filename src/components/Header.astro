@@ -44,42 +44,51 @@ import HeaderLink from './HeaderLink.astro';
 </header>
 <style>
 	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
+  margin: 0;
+  padding: 0 1em;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
-	}
-	.social-links,
-	.social-links a {
-		display: flex;
-	}
-	@media (max-width: 720px) {
-		.social-links {
-			display: none;
-		}
-	}
+nav {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav a {
+  padding: 1em 0.5em;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+nav a.active {
+  border-bottom-color: var(--accent);
+  color: var(--fg);
+}
+
+.internal-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.social-links,
+.social-links a {
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+}
+
+.social-links a:hover {
+  color: var(--fg);
+}
+
+@media (max-width: 720px) {
+  .social-links {
+    display: none;
+  }
+}
 </style>
