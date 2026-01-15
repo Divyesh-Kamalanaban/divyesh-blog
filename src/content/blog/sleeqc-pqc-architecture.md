@@ -1,7 +1,7 @@
 ---
 title: 'SleeQC Architecture: Implementing Resource-Adaptive PQC in C'
 description: 'Using TinyML to manage Post-Quantum Cryptography trade-offs on ESP32-S3.'
-pubDate: '2026-01-14'
+pubDate: '2026-01-15'
 author: 'Divyesh K'
 heroImage: '/assets/sleeqc-pqc-architecture.webp'
 tags: ["pqc", "edge"]
