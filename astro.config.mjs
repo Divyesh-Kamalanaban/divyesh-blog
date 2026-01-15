@@ -5,6 +5,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import mermaid from 'astro-mermaid';
+import { use } from 'react';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,8 +19,10 @@ export default defineConfig({
   
   // Additional mermaid configuration
   mermaidConfig: {
+    useMaxWidth: false,
     flowchart: {
-      curve: 'basis'
+      curve: 'basis',
+      useMaxWidth: false
     }
   },
   
