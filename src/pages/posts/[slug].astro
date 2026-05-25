@@ -1,0 +1,31 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import PostDetailView from '../../components/PostDetailView.tsx';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('blog');
+  return entries.map((entry) => ({ params: { slug: entry.data.slug ?? entry.slug ?? entry.id } }));
+}
+const slug = String(Astro.params.slug);
+const entries = await getCollection('blog');
+const meta = entries.find((e) => (e.data.slug ?? e.slug ?? e.id) === slug);
+if (!meta) {
+  throw new Error(`Post not found: ${slug}`);
+}
+const entry = await getEntry('blog', meta.id);
+const post = {
+  id: entry.id,
+  title: entry.data.title,
+  slug: entry.data.slug ?? entry.slug ?? entry.id,
+  date: entry.data.date ?? '',
+  readingTime: entry.data.readingTime ?? '',
+  category: entry.data.category ?? 'Devlog',
+  excerpt: entry.data.excerpt ?? '',
+  tags: entry.data.tags ?? [],
+  content: entry.body ?? ''
+};
+---
+<SiteLayout title={`${entry.data.title} • Divyesh.dev`} description={entry.data.excerpt ?? entry.data.title} active="posts">
+  <PostDetailView client:idle post={post} />
+</SiteLayout>

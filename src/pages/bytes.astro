@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import BytesReact from '../components/BytesView.tsx';
+
+const entries = await getCollection('bytes');
+
+function parseDateSafe(d) {
+  const t = Date.parse(String(d ?? ''));
+  return Number.isFinite(t) && !Number.isNaN(t) ? t : 0;
+}
+
+// Sort bytes newest-first by date when available, otherwise by id
+entries.sort((a, b) => {
+  const ta = parseDateSafe(a.data.date);
+  const tb = parseDateSafe(b.data.date);
+  if (ta !== tb) return tb - ta;
+  return b.id.localeCompare(a.id);
+});
+
+const bytesList = entries.map((entry) => ({
+  id: entry.data.id ?? entry.id,
+  type: entry.data.type,
+  title: entry.data.title,
+  subtitle: entry.data.subtitle,
+  date: entry.data.date ?? '',
+  fileName: entry.data.fileName,
+  content: entry.data.type === 'quote' ? undefined : entry.body?.trim() ?? undefined,
+  code: entry.data.type === 'snippet' ? entry.body?.trim() ?? undefined : undefined,
+  link: entry.data.link,
+  tags: entry.data.tags ?? [],
+  quoteText: entry.data.quoteText,
+  quoteAuthor: entry.data.quoteAuthor
+}));
+---
+<SiteLayout title="Bytes • Divyesh.dev" description="Short notes, snippets, and discoveries" active="bytes">
+   
+      <BytesReact client:idle bytes={bytesList} />
+</SiteLayout>

@@ -5,7 +5,7 @@ import { useState, useMemo } from 'react';
 
 interface PostsViewProps {
   posts: Post[];
-  onSelectPost: (post: Post) => void;
+  onSelectPost?: (post: Post) => void;
   searchQuery: string;
 }
 
@@ -17,22 +17,19 @@ export default function Posts({ posts, onSelectPost, searchQuery }: PostsViewPro
 
   const categories = ['All', 'Devlogs', 'Tutorials', 'Opinions'];
 
-  // Map category tab string to exact post item categories
   const mappedPosts = useMemo(() => {
     let list = posts;
 
-    // Filter by Tab category
     if (selectedCategory !== 'All') {
-      const filterTerm = selectedCategory.toLowerCase().slice(0, -1); // devlog, tutorial, opinion
+      const filterTerm = selectedCategory.toLowerCase().slice(0, -1);
       list = list.filter(p => p.category.toLowerCase().startsWith(filterTerm));
     }
 
-    // Filter by Header search or local list search
     const activeQuery = (searchQuery || localSearch).toLowerCase().trim();
     if (activeQuery) {
       list = list.filter(
-        p => 
-          p.title.toLowerCase().includes(activeQuery) || 
+        p =>
+          p.title.toLowerCase().includes(activeQuery) ||
           p.excerpt.toLowerCase().includes(activeQuery) ||
           p.tags.some(t => t.toLowerCase().includes(activeQuery))
       );
@@ -41,7 +38,6 @@ export default function Posts({ posts, onSelectPost, searchQuery }: PostsViewPro
     return list;
   }, [posts, selectedCategory, searchQuery, localSearch]);
 
-  // Handle pagination calculation
   const totalPages = Math.ceil(mappedPosts.length / postsPerPage) || 1;
   const paginatedPosts = useMemo(() => {
     const start = (currentPage - 1) * postsPerPage;
@@ -57,12 +53,11 @@ export default function Posts({ posts, onSelectPost, searchQuery }: PostsViewPro
 
   const selectCategory = (category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Reset page indices
+    setCurrentPage(1);
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto flex flex-col gap-10">
-      {/* Page Header */}
+    <div className="w-full max-w-4xl mx-auto flex flex-col gap-10">
       <header className="mb-4">
         <h1 className="font-sans font-black text-4xl md:text-6xl text-white mb-3 tracking-tighter uppercase leading-none">
           Posts & Devlogs
@@ -72,9 +67,7 @@ export default function Posts({ posts, onSelectPost, searchQuery }: PostsViewPro
         </p>
       </header>
 
-      {/* Search & Filter bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
-        {/* Navigation Categories */}
         <nav aria-label="Filters" className="flex md:flex-shrink-0 gap-1.5 overflow-x-auto no-scrollbar py-1">
           {categories.map((category) => {
             const isActive = selectedCategory === category;
@@ -94,7 +87,6 @@ export default function Posts({ posts, onSelectPost, searchQuery }: PostsViewPro
           })}
         </nav>
 
-        {/* Inline Search Subsystem */}
         <div className="relative w-full md:max-w-xs">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
           <input
@@ -110,7 +102,6 @@ export default function Posts({ posts, onSelectPost, searchQuery }: PostsViewPro
         </div>
       </div>
 
-      {/* Main Post List */}
       <div className="flex flex-col min-h-[350px]">
         <AnimatePresence mode="popLayout">
           {paginatedPosts.length > 0 ? (
@@ -122,7 +113,12 @@ export default function Posts({ posts, onSelectPost, searchQuery }: PostsViewPro
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.35, delay: i * 0.05 }}
-                  onClick={() => onSelectPost(post)}
+                  onClick={() => {
+                    if (onSelectPost) return onSelectPost(post);
+                    if (typeof window !== 'undefined') {
+                      window.location.href = `/posts/${post.slug}`;
+                    }
+                  }}
                   className="py-10 border-b border-white/10 group cursor-pointer hover:border-white/30 transition-all duration-200"
                 >
                   <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] text-white/40 mb-3 tracking-wider uppercase">
@@ -176,7 +172,6 @@ export default function Posts({ posts, onSelectPost, searchQuery }: PostsViewPro
         </AnimatePresence>
       </div>
 
-      {/* Pagination component */}
       {totalPages > 1 && (
         <nav aria-label="Pagination" className="flex justify-between items-center border-t border-white/10 pt-8 mt-4">
           <button

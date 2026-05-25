@@ -1,0 +1,8 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import AboutView from '../components/AboutView.tsx';
+import { technicalStack, currentGear } from '../consts';
+---
+<SiteLayout title="About • Divyesh.dev" description="About Divyesh, technical stack, and current gear" active="about">
+  <AboutView client:idle technicalStack={technicalStack} currentGear={currentGear} />
+</SiteLayout>

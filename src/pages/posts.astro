@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PostsReact from '../components/PostsView.tsx';
+
+const entries = await getCollection('blog');
+
+function parseDateSafe(d) {
+  const t = Date.parse(String(d ?? ''));
+  return Number.isFinite(t) && !Number.isNaN(t) ? t : 0;
+}
+
+// sort newest first by date (best-effort) then fallback to id
+entries.sort((a, b) => {
+  const ta = parseDateSafe(a.data.date);
+  const tb = parseDateSafe(b.data.date);
+  if (ta !== tb) return tb - ta;
+  return b.id.localeCompare(a.id);
+});
+
+const blogPosts = entries.map((entry) => ({
+  id: entry.data.id ?? entry.id,
+  slug: entry.data.slug ?? entry.slug ?? entry.id,
+  title: entry.data.title,
+  date: entry.data.date ?? '',
+  readingTime: entry.data.readingTime ?? '',
+  category: entry.data.category ?? 'Devlog',
+  excerpt: entry.data.excerpt ?? '',
+  tags: entry.data.tags ?? [],
+  content: entry.body ?? ''
+}));
+---
+<SiteLayout title="Posts • Divyesh.dev" description="Long-form essays and engineering notes" active="posts">
+    <div class="p-0 md:p-0">
+      <PostsReact client:idle posts={blogPosts} searchQuery="" />
+    </div>
+</SiteLayout>

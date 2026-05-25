@@ -34,7 +34,6 @@ export default function Bytes({ bytes }: BytesViewProps) {
 
   return (
     <div className="w-full mx-auto flex flex-col gap-10">
-      {/* Page Header */}
       <header className="mb-4 border-b border-white/10 pb-8">
         <h1 className="font-sans font-black text-4xl md:text-6xl text-white mb-3 tracking-tighter uppercase leading-none">
           Bytes
@@ -44,7 +43,6 @@ export default function Bytes({ bytes }: BytesViewProps) {
         </p>
       </header>
 
-      {/* masonry Column lists styling */}
       <div className="columns-1 md:columns-2 gap-6 space-y-6">
         <AnimatePresence mode="popLayout">
           {visibleBytes.map((byte, idx) => {
@@ -56,7 +54,6 @@ export default function Bytes({ bytes }: BytesViewProps) {
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
                 className="break-inside-avoid bg-neutral-950 border border-white/10 rounded-none overflow-hidden flex flex-col hover:border-white/20 transition-all group"
               >
-                {/* Traffic Dot Frame / Header (Only for Snippets, Thoughts, Devlogs) */}
                 {byte.type !== 'quote' && (
                   <div className="bg-neutral-900 px-4 py-3 flex items-center justify-between border-b border-white/10">
                     <div className="flex items-center gap-1.5">
@@ -77,7 +74,6 @@ export default function Bytes({ bytes }: BytesViewProps) {
                   </div>
                 )}
 
-                {/* Render different cards dynamically based on category */}
                 {byte.type === 'snippet' && byte.code && (
                   <div className="flex flex-col w-full">
                     <div className="p-5 border-b border-white/10 bg-neutral-950">
@@ -106,7 +102,6 @@ export default function Bytes({ bytes }: BytesViewProps) {
                   </div>
                 )}
 
-                {/* Thought Category */}
                 {byte.type === 'thought' && (
                   <div className="p-6 bg-neutral-900/40 flex flex-col min-h-[140px] border-b border-white/5">
                     <div className="flex items-center gap-1.5 text-[#00ecff] font-mono text-[9px] uppercase tracking-widest mb-3 font-semibold">
@@ -120,7 +115,6 @@ export default function Bytes({ bytes }: BytesViewProps) {
                   </div>
                 )}
 
-                {/* Link / Tools Category */}
                 {byte.type === 'discovery' && (
                   <div className="p-6 relative overflow-hidden flex flex-col w-full h-full justify-between min-h-[160px] bg-neutral-950">
                     <div className="absolute top-0 right-0 w-28 h-28 bg-white/5 rounded-bl-full pointer-events-none -z-10 group-hover:scale-110 transition-transform"></div>
@@ -152,7 +146,6 @@ export default function Bytes({ bytes }: BytesViewProps) {
                   </div>
                 )}
 
-                {/* Devlog Category with Terminal Cover */}
                 {byte.type === 'devlog' && (
                   <div className="flex flex-col w-full">
                     <div className="h-28 bg-neutral-900 relative flex items-center justify-center border-b border-white/10 overflow-hidden">
@@ -181,7 +174,6 @@ dist/client/     2.41 MB`}
                   </div>
                 )}
 
-                {/* Typography Focus / Direct Quote Card */}
                 {byte.type === 'quote' && (
                   <div className="bg-white text-black rounded-none p-6 relative overflow-hidden select-text flex flex-col justify-between min-h-[160px]">
                     <div className="absolute -top-4 -left-4 text-black/5 pointer-events-none">
@@ -189,7 +181,7 @@ dist/client/     2.41 MB`}
                     </div>
                     <div className="relative z-10 flex flex-col h-full justify-between">
                       <blockquote className="font-sans text-lg md:text-xl font-black uppercase tracking-tight mb-5 leading-none">
-                        "{byte.quoteText}"
+                        &quot;{byte.quoteText}&quot;
                       </blockquote>
                       <cite className="font-sans text-[10px] uppercase font-black tracking-widest text-[#00ecff] block text-right mt-auto">
                         — {byte.quoteAuthor}
@@ -203,7 +195,6 @@ dist/client/     2.41 MB`}
         </AnimatePresence>
       </div>
 
-      {/* Pagination Load Trigger */}
       {visibleCount < bytes.length && (
         <div className="mt-8 flex justify-center pb-8 border-b border-white/10">
           <button

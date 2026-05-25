@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "snippet",
+        "thought",
+        "discovery",
+        "devlog",
+        "quote"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "fileName": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "quoteText": {
+      "type": "string"
+    },
+    "quoteAuthor": {
+      "type": "string"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "title"
+  ]
+}

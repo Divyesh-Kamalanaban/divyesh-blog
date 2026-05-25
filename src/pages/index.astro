@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import HomeView from '../components/HomeView.tsx';
+
+const blogEntries = await getCollection('blog');
+const byteEntries = await getCollection('bytes');
+
+const blogPosts = blogEntries.map((entry) => ({
+  id: entry.id,
+  slug: entry.data.slug,
+  title: entry.data.title,
+  date: entry.data.date,
+  readingTime: entry.data.readingTime ?? '',
+  category: entry.data.category ?? 'Devlog',
+  excerpt: entry.data.excerpt ?? '',
+  tags: entry.data.tags ?? [],
+  content: entry.body ?? ''
+}));
+
+const bytesList = byteEntries.map((entry) => {
+  const data = entry.data;
+  const body = entry.body?.trim() ?? '';
+  if (data.type === 'snippet') {
+    const codeMatch = body.match(/```[\w-]*\n([\s\S]*?)```/);
+    return { ...data, id: entry.id, code: codeMatch?.[1]?.trim() ?? body };
+  }
+  if (data.type === 'quote') {
+    return { ...data, id: entry.id };
+  }
+  return { ...data, id: entry.id, content: body };
+});
+---
+<SiteLayout title="Divyesh.dev" description="Exploring code, craft, and creativity" active="home">
+  <HomeView client:idle posts={blogPosts} bytes={bytesList} />
+</SiteLayout>

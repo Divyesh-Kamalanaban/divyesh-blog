@@ -1,32 +1,29 @@
 import { motion } from 'motion/react';
-import { Post } from '../types';
 import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
+import { Post } from '../types';
 
 interface PostDetailViewProps {
   post: Post;
-  onBack: () => void;
 }
 
-export default function PostDetail({ post, onBack }: PostDetailViewProps) {
+export default function PostDetail({ post }: PostDetailViewProps) {
   return (
-    <motion.article 
+    <motion.article
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -15 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="w-full max-w-2xl mx-auto flex flex-col gap-8 pb-16 select-text"
+      className="w-full max-w-4xl mx-auto flex flex-col gap-8 pb-16 select-text"
     >
-      {/* Back to previous stream block */}
       <div>
-        <button
-          onClick={onBack}
-          className="inline-flex items-center gap-2 font-sans font-black text-[10px] uppercase tracking-widest text-[#00ecff] hover:text-white transition-all cursor-pointer group"
+        <a
+          href="/posts"
+          className="inline-flex items-center gap-2 font-sans font-black text-[10px] uppercase tracking-widest text-[#00ecff] hover:text-white transition-all cursor-pointer group no-underline"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Back to posts
-        </button>
+        </a>
       </div>
 
-      {/* Article Header block */}
       <header className="flex flex-col gap-4 border-b border-white/10 pb-6">
         <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] text-white/40 uppercase tracking-widest">
           <span className="flex items-center gap-1.5">
@@ -53,11 +50,9 @@ export default function PostDetail({ post, onBack }: PostDetailViewProps) {
         </p>
       </header>
 
-      {/* Main text content body */}
       <div className="font-sans text-xs md:text-sm text-white/80 leading-relaxed space-y-6 flex flex-col">
         {post.content ? (
           post.content.split('\n\n').map((paragraph, index) => {
-            // Check if paragraph is markdown sub-header
             if (paragraph.startsWith('### ')) {
               return (
                 <h3 key={index} className="font-sans font-black text-xs uppercase tracking-[0.2em] text-[#00ecff] mt-6 mb-2">
@@ -73,7 +68,6 @@ export default function PostDetail({ post, onBack }: PostDetailViewProps) {
               );
             }
             if (paragraph.startsWith('- ') || paragraph.startsWith('1. ')) {
-              // Simple check for lists
               return (
                 <ul key={index} className="list-disc list-inside space-y-2 text-xs md:text-sm text-white/70 pl-4">
                   {paragraph.split('\n').map((li, idx) => (
@@ -84,10 +78,9 @@ export default function PostDetail({ post, onBack }: PostDetailViewProps) {
                 </ul>
               );
             }
-            
-            // Check for mock code snippet inside the markdown body
+
             if (paragraph.startsWith('```')) {
-              const codeLines = paragraph.split('\n').filter(l => !l.startsWith('```'));
+              const codeLines = paragraph.split('\n').filter((line) => !line.startsWith('```'));
               return (
                 <div key={index} className="bg-black border border-white/10 text-white font-mono text-xs rounded-none p-5 overflow-x-auto leading-relaxed my-4">
                   <pre className="no-scrollbar">{codeLines.join('\n')}</pre>
@@ -106,10 +99,9 @@ export default function PostDetail({ post, onBack }: PostDetailViewProps) {
         )}
       </div>
 
-      {/* Footer tags list */}
       <footer className="border-t border-white/10 pt-6 flex flex-wrap gap-2.5 items-center mt-6">
         <Tag className="w-3.5 h-3.5 text-white/30 mr-0.5" />
-        {post.tags.map((tag) => (
+        {(post.tags ?? []).map((tag) => (
           <span key={tag} className="font-mono text-[10px] text-white/40 hover:text-white uppercase tracking-wider transition-colors cursor-default">
             #{tag}
           </span>
