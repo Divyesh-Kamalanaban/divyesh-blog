@@ -1,5 +1,15 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
+export const SITE_TITLE = "DIVYESH.dev";
+export const SITE_DESCRIPTION = "An editorial portfolio and technical journal exploring software engineering, distributed systems, and fine-grained reactivity.";
 
-export const SITE_TITLE = 'Divyesh Kamalanaban';
-export const SITE_DESCRIPTION = 'divyesh.is-cool.dev will contain devlogs, writing about new discoveries and explorations into the fields of embedded hardware, Linux development, DIY tech as a full stack developer (student currently).';
+export const technicalStack = {
+  languages: ['Go', 'Python', 'TypeScript', 'Rust'],
+  infrastructure: ['AWS', 'Docker', 'Kubernetes', 'Terraform'],
+  data: ['PostgreSQL', 'Redis', 'Kafka']
+};
+
+export const currentGear = [
+  'MacBook Pro 14" (M2 Pro)',
+  'HHKB Professional Hybrid Type-S',
+  'Logitech MX Master 3S',
+  'Dell UltraSharp 27" 4K Monitor'
+];

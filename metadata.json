@@ -1,0 +1,6 @@
+{
+  "name": "Divyesh's Technical Blog",
+  "description": "An editorial portfolio and technical journal exploring software engineering, distributed systems state consistency, observability, and fine-grained reactivity.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
