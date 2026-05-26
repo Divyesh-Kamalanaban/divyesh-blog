@@ -56,7 +56,7 @@ export default function Home({ posts, bytes }: HomeViewProps) {
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
             className="font-sans text-base md:text-lg text-white/75 max-w-xl mb-10 leading-relaxed"
           >
-            Notes on software engineering, architecture, and the subtle art of building reliable systems. A digital journal for the technical mind.
+            My curated digital journal of my everyday findings, thoughts and experiments in software engineering. A blend of long-form essays and quick bytes which emphasizes simplicity, clarity and practical insights. No fluff, just the good stuff.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 15 }}

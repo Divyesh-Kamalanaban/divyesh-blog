@@ -1,5 +1,6 @@
 ---
 import '../styles/index.css';
+import Analytics from '@vercel/analytics/astro'
 
 const {
   title = 'Divyesh.dev',
@@ -21,6 +22,7 @@ const navItems = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <Analytics />
   </head>
   <body class="bg-[#050505] text-white antialiased selection:bg-neutral-800 selection:text-white">
     <div class="min-h-screen flex flex-col">
