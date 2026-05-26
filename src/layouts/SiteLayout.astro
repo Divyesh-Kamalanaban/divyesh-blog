@@ -1,6 +1,7 @@
 ---
 import '../styles/index.css';
 import Analytics from '@vercel/analytics/astro'
+import SpeedInsights from "@vercel/speed-insights/astro"
 
 const {
   title = 'Divyesh.dev',
@@ -23,6 +24,7 @@ const navItems = [
     <title>{title}</title>
     <meta name="description" content={description} />
     <Analytics />
+    <SpeedInsights />
   </head>
   <body class="bg-[#050505] text-white antialiased selection:bg-neutral-800 selection:text-white">
     <div class="min-h-screen flex flex-col">
